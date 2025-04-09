@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Produit - StreetWear Empire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animation pour le formulaire */
+        #paymentForm {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.3s ease-out;
+            transform: translateY(-30px);
+        }
+        #paymentForm.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Style du fond semi-transparent et petit formulaire */
+        #paymentForm .modal-content {
+            background-color: rgba(0, 0, 0, 0.7); /* Fond translucide */
+            color: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Ombre douce */
+            border-radius: 10px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px; /* Limiter la largeur */
+        }
+
+        /* Styliser le bouton fermer */
+        #closeForm {
+            background-color: #e53e3e;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Améliorer les boutons de paiement */
+        .payment-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 18px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            gap: 10px;
+        }
+
+        .payment-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-money-btn {
+            background-color: #26a69a;
+            color: white;
+        }
+
+        .credit-card-btn {
+            background-color: #424242;
+            color: white;
+        }
+
+        .mobile-money-btn:hover {
+            background-color: #00796b;
+        }
+
+        .credit-card-btn:hover {
+            background-color: #616161;
+        }
+
+        /* Styles pour la quantité */
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Style du carrousel */
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            max-width: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+<!-- Header -->
+<header class="p-6">
+    <a href="catalogues.html" class="text-red-500 hover:underline">&larr; Retour à la Boutique</a>
+</header>
+
+<!-- Section Produit -->
+<section id="product" class="p-8 flex flex-col md:flex-row gap-10 items-center justify-center min-h-screen text-center">
+    <!-- Card Produit avec Image à gauche et Détails à droite -->
+    <div class="flex flex-col md:flex-row gap-10 items-center">
+        <!-- Image du produit (Carrousel) -->
+        <div class="md:w-1/2 w-full">
+            <div class="carousel-container">
+                <div class="carousel-images" id="carouselImages">
+                    <!-- Les images du produit seront ajoutées dynamiquement ici -->
+                </div>
+                <button class="carousel-button prev" id="prevButton">&#8592;</button>
+                <button class="carousel-button next" id="nextButton">&#8594;</button>
+            </div>
+        </div>
+
+        <!-- Détails du produit -->
+        <div class="md:w-1/2 text-left space-y-6">
+            <h1 class="text-4xl font-bold text-red-500" id="product-name"></h1>
+            <p class="text-gray-400 text-2xl" id="product-price"></p>
+            <p class="text-lg" id="product-description"></p>
+
+            <!-- Sélection de la couleur -->
+            <div>
+                <h2 class="text-lg font-semibold">Couleur</h2>
+                <select id="colorSelect" class="bg-black text-white border border-gray-300 rounded-lg p-2">
+                    <option value="red">Rouge</option>
+                    <option value="blue">Bleu</option>
+                    <option value="black">Noir</option>
+                </select>
+            </div>
+
+            <!-- Sélection de la taille -->
+            <div>
+                <h2 class="text-lg font-semibold">Taille</h2>
+                <select id="sizeSelect" class="bg-black text-white border border-gray-300 rounded-lg p-2">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+            </div>
+
+            <!-- Contrôle de la quantité -->
+            <div class="quantity-control">
+                <h2 class="text-lg font-semibold">Quantité</h2>
+                <button id="decreaseQuantity" class="bg-gray-800 text-white px-4 py-2 rounded">-</button>
+                <span id="quantity" class="text-xl">1</span>
+                <button id="increaseQuantity" class="bg-gray-800 text-white px-4 py-2 rounded">+</button>
+            </div>
+
+            <!-- Total -->
+            <div>
+                <h2 class="text-lg font-semibold">Total</h2>
+                <p id="totalPrice" class="text-2xl text-red-500">89.99€</p> <!-- Prix total affiché -->
+            </div>
+
+            <!-- Section Paiement -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-semibold">Options de Paiement</h2>
+                <p class="text-gray-400">Choisissez votre mode de paiement préféré :</p>
+
+                <!-- Mobile Money -->
+                <button id="mobileMoneyBtn" class="payment-btn mobile-money-btn">
+                    <span>💸</span> Paiement Mobile Money
+                </button>
+
+                <!-- Carte Bancaire -->
+                <button class="payment-btn credit-card-btn">
+                    <span>💳</span> Paiement par Carte Bancaire
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Formulaire de Paiement Mobile Money -->
+<div id="paymentForm" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 hidden">
+    <div class="modal-content">
+        <h2 class="text-2xl font-bold mb-4">Paiement Mobile Money</h2>
+        <form id="payment-form" method="POST">
+            <label for="name" class="block text-lg mb-2">Nom</label>
+            <input type="text" name="name" id="name" class="w-full p-3 mb-4 border border-gray-300 rounded-lg" required>
+
+            <label for="email" class="block text-lg mb-2">E-mail</label>
+            <input type="email" name="email" id="email" class="w-full p-3 mb-4 border border-gray-300 rounded-lg" required>
+
+            <label for="phone" class="block text-lg mb-2">Numéro Mobile Money</label>
+            <input type="text" name="phone" id="phone" class="w-full p-3 mb-4 border border-gray-300 rounded-lg" required>
+
+            <label for="amount" class="block text-lg mb-2">Montant</label>
+            <input type="text" name="amount" id="amount" class="w-full p-3 mb-4 border border-gray-300 rounded-lg" value="" readonly>
+
+            <button type="submit" class="w-full bg-green-500 hover:bg-green-700 text-white px-6 py-3 uppercase rounded-lg shadow-md transition">
+                Confirmer le Paiement
+            </button>
+        </form>
+        <button id="closeForm" class="mt-4">
+            Fermer
+        </button>
+    </div>
+</div>
+
+<script>
+// Liste des produits
+const products = {
+    1: {
+        name: "Hoodie Street",
+        price: 89.99,
+        description: "Un hoodie ultra stylé pour un look streetwear unique.",
+        images: [
+            "assets/tshirt-4.jpg",
+            "assets/tshirt-3.jpg",
+            "assets/tshirt-1.jpg"
+        ]
+    },
+    2: {
+        name: "Cargo Pants",
+        price: 69.99,
+        description: "Pantalon cargo confortable et tendance.",
+        images: [
+            "assets/tshirt-3.jpg",
+            "assets/tshirt-1.jpg",
+            "assets/tshirt-4.jpg"
+        ]
+    },
+    3: {
+        name: "T-shirt Oversize",
+        price: 49.99,
+        description: "T-shirt oversize ultra confort et stylé.",
+        images: [
+            "assets/tshirt-1.jpg",
+            "assets/tshirt-4.jpg",
+            "assets/tshirt-3.jpg"
+        ]
+    }
+}
+
+// Récupération de l'id depuis l'URL
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+const product = products[id];
+
+// Vérification et affichage
+if (product) {
+    document.getElementById('product-name').textContent = product.name;
+    document.getElementById('product-price').textContent = `${product.price}€`;
+    document.getElementById('product-description').textContent = product.description;
+    document.getElementById('amount').value = product.price;
+
+    // Dynamique des images du produit dans le carrousel
+    const carouselImages = document.getElementById('carouselImages');
+    carouselImages.innerHTML = ''; // Effacer les images actuelles du carrousel
+    product.images.forEach(image => {
+        const img = document.createElement('img');
+        img.src = image;
+        img.alt = "Image du produit";
+        img.classList.add('carousel-image');
+        carouselImages.appendChild(img);
+    });
+
+    // Fonction pour mettre à jour le total et le montant dans le formulaire de paiement
+    function updateTotal() {
+        const quantity = parseInt(document.getElementById('quantity').textContent);
+        const total = (product.price * quantity).toFixed(2);
+        document.getElementById('totalPrice').textContent = `${total}€`;  // Mettre à jour l'affichage du total
+        document.getElementById('amount').value = total;  // Mettre à jour le montant dans le formulaire de paiement
+    }
+
+    // Gestion de l'augmentation de la quantité
+    document.getElementById('increaseQuantity').addEventListener('click', () => {
+        let quantity = parseInt(document.getElementById('quantity').textContent);
+        quantity++;
+        document.getElementById('quantity').textContent = quantity;
+        updateTotal();
+    });
+
+    // Gestion de la diminution de la quantité
+    document.getElementById('decreaseQuantity').addEventListener('click', () => {
+        let quantity = parseInt(document.getElementById('quantity').textContent);
+        if (quantity > 1) {
+            quantity--;
+            document.getElementById('quantity').textContent = quantity;
+            updateTotal();
+        }
+    });
+}
+
+// Gestion du carrousel
+let currentIndex = 0;
+const totalImages = product ? product.images.length : 0;
+
+document.getElementById('prevButton').addEventListener('click', () => {
+    if (currentIndex > 0) {
+        currentIndex--;
+        document.getElementById('carouselImages').style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+});
+
+document.getElementById('nextButton').addEventListener('click', () => {
+    if (currentIndex < totalImages - 1) {
+        currentIndex++;
+        document.getElementById('carouselImages').style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+});
+</script>
+
+</body>
+</html>
