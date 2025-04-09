@@ -4,28 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StreetWear Empire</title>
-
-    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&display=swap" rel="stylesheet">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&display=swap" rel="stylesheet">
+<style>
+    * {
+        scroll-behavior: smooth;
+    }
 
-    <style>
-        * {
-            scroll-behavior: smooth;
+    .font-bungee {
+        font-family: 'Bungee Tint', cursive;
+    }
+
+    @keyframes fade-up {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
         }
-    </style>
-</head>
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
+    .animate-fade-up {
+        animation: fade-up 1s ease forwards;
+    }
+</style>
+
+</head>
 <body class="relative bg-black text-white font-sans">
 
 <!-- Header -->
 <header class="absolute top-0 left-0 w-full z-20">
     <div class="flex items-center justify-between p-6 bg-transparent">
-        <div class="text-3xl font-extrabold tracking-widest uppercase" style="font-family: 'Bungee Tint', cursive;">
+        <div class="text-3xl font-extrabold tracking-widest uppercase">
             Deepest<span class="text-red-500">Empire</span>
         </div>
         <button class="text-white text-3xl md:hidden" onclick="toggleMenu()">
@@ -55,9 +70,9 @@
         Votre navigateur ne supporte pas la vidéo.
     </video>
     <div class="absolute top-0 left-0 w-full h-full bg-black/60 flex flex-col items-center justify-center text-center px-4">
-        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 animate-fade-up duration-1000">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 animate-fade-up duration-1000 font-bungee">
             From <span class="text-red-500">Deepest</span> to Greatest
-        </h1>
+        </h1>        
         <p class="text-xl md:text-2xl text-gray-300 animate-fade-up delay-200 duration-1000">
             Explore notre nouvelle collection exclusive
         </p>
