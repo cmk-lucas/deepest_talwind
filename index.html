@@ -4,19 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StreetWear Empire</title>
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&display=swap" rel="stylesheet">
+
     <style>
         * {
             scroll-behavior: smooth;
         }
     </style>
 </head>
+
 <body class="relative bg-black text-white font-sans">
 
 <!-- Header -->
 <header class="absolute top-0 left-0 w-full z-20">
     <div class="flex items-center justify-between p-6 bg-transparent">
-        <div class="text-3xl font-extrabold tracking-widest uppercase">
+        <div class="text-3xl font-extrabold tracking-widest uppercase" style="font-family: 'Bungee Tint', cursive;">
             Deepest<span class="text-red-500">Empire</span>
         </div>
         <button class="text-white text-3xl md:hidden" onclick="toggleMenu()">
