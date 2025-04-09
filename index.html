@@ -40,13 +40,17 @@
 <!-- Header -->
 <header class="absolute top-0 left-0 w-full z-20">
     <div class="flex items-center justify-between p-6 bg-transparent">
+        <!-- Logo sans position absolute -->
         <div>
-            <img src="assets/logo.png" alt="Logo DeepestEmpire" class="absolute h-50 top-0 left-0">
+            <img src="assets/logo.png" alt="Logo DeepestEmpire" class="h-16 md:h-20">
         </div>
         
+        <!-- Bouton Burger -->
         <button class="text-white text-3xl md:hidden" onclick="toggleMenu()">
             &#9776;
         </button>
+
+        <!-- Menu Desktop -->
         <nav class="hidden md:flex space-x-8 text-lg font-medium">
             <a href="#" class="hover:text-red-500 transition duration-300">Accueil</a>
             <a href="#shop" class="hover:text-red-500 transition duration-300">Boutique</a>
@@ -55,7 +59,6 @@
         </nav>
     </div>
 </header>
-
 
 <!-- Menu Mobile FullScreen -->
 <div id="mobile-menu" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex flex-col items-center justify-center space-y-10 text-2xl font-bold uppercase transition-all duration-500">
